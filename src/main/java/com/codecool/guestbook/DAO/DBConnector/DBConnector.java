@@ -8,9 +8,10 @@ import java.sql.SQLException;
 public class DBConnector {
 
     private static BasicDataSource dataSource = new BasicDataSource();
+    private static Connection connection;
 
     static {
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/quest_store");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/guestbook");
         dataSource.setUsername("admin");
         dataSource.setPassword("admin");
         dataSource.setMinIdle(5);
@@ -21,13 +22,22 @@ public class DBConnector {
     private DBConnector(){ }
 
     public static Connection getConnection() {
-        Connection connection = null;
-
         try {
             connection = dataSource.getConnection();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                System.err.println("Can't close connection!");
+                e.printStackTrace();
+            }
+        }
     }
 }
