@@ -1,5 +1,6 @@
 package com.codecool.guestbook.DAO;
 
+import com.codecool.guestbook.DAO.DBConnector.DBConnector;
 import com.codecool.guestbook.model.Content;
 import com.codecool.guestbook.model.Entry;
 
@@ -25,9 +26,11 @@ public class DBDAO implements DAO {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
+        Connection con;
 
         try {
-            preparedStatement = connection.prepareStatement(query);
+            con = DBConnector.getConnection();
+            preparedStatement = con.prepareStatement(query);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -40,6 +43,7 @@ public class DBDAO implements DAO {
 
             preparedStatement.close();
             resultSet.close();
+            con.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,5 +52,26 @@ public class DBDAO implements DAO {
         return entries;
     }
 
+    @Override
+    public void insert(Content content) {
+        String query = "INSERT INTO entry(content, author, date) VALUES (?, ?, ?)";
 
+        Connection con = DBConnector.getConnection();
+        PreparedStatement preparedStatement = null;
+
+        try {
+            preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, content.getContent());
+            preparedStatement.setString(2, content.getAuthor());
+            preparedStatement.setString(3, content.getDate());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.err.println("Can't put record into table!");
+            e.printStackTrace();
+        }
+    }
 }
