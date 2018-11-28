@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+    <form action="" method="post">
+        <label for="content">Message: </label>
+        <textarea name="content" id="content" cols="30" rows="10" required></textarea>
+        <label for="name">Name: </label>
+        <input type="text" name="name" required>
+        <input type="button" value="Submit">
+    </form>
+
+    <table>
+    	{% for entry in entries %}
+		<tr>
+		    <td> {{ content }} </td>
+		    <td> {{ author }} </td>
+		    <td> {{ date }} </td>
+		</tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
