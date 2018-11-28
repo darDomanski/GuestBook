@@ -4,6 +4,8 @@ import com.codecool.guestbook.model.Content;
 
 import java.util.List;
 
-interface DAO {
+public interface DAO {
     List<Content> getAll();
+
+    void insert(Content content);
 }
