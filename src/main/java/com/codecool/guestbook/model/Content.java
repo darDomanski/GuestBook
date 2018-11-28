@@ -1,13 +1,11 @@
 package com.codecool.guestbook.model;
 
-import java.time.LocalDate;
-
 public abstract class Content {
     String content;
     String author;
-    LocalDate date;
+    String date;
 
-    public Content(String content, String author, LocalDate date) {
+    public Content(String content, String author, String date) {
         this.content = content;
         this.author = author;
         this.date = date;
@@ -21,7 +19,7 @@ public abstract class Content {
         return author;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 }
