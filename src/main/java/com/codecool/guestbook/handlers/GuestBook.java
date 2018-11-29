@@ -1,7 +1,6 @@
 package com.codecool.guestbook.handlers;
 
 import com.codecool.guestbook.DAO.DAO;
-import com.codecool.guestbook.DAO.DBConnector.DBConnector;
 import com.codecool.guestbook.DAO.DBDAO;
 import com.codecool.guestbook.model.Content;
 import com.codecool.guestbook.model.Entry;
@@ -69,8 +68,6 @@ public class GuestBook implements HttpHandler {
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
-
-        DBConnector.closeConnection();
 
     }
 }
