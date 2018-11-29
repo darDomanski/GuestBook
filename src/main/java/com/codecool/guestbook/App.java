@@ -2,6 +2,7 @@ package com.codecool.guestbook;
 
 import com.codecool.guestbook.DAO.DBConnector.DBConnector;
 import com.codecool.guestbook.handlers.GuestBook;
+import com.codecool.guestbook.handlers.Static;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class App {
 
-    private static Connection connection = DBConnector.getConnection();
+    private Connection connection = DBConnector.getConnection();
 
     public static void main(String[] args) throws Exception {
         System.out.println(Calendar.getInstance().getTime().toString());
@@ -37,7 +38,8 @@ public class App {
                     server = HttpServer.create(new InetSocketAddress(8000), 0);
                     System.out.println("Server created successfully!");
 
-                    server.createContext("/", new GuestBook(connection));
+                    server.createContext("/", new GuestBook(this.connection));
+                    server.createContext("/static", new Static());
                     server.setExecutor(null);
                     System.out.println("Server's routes set!");
 
@@ -64,7 +66,6 @@ public class App {
             }
 
         }
-
 
     }
 
