@@ -74,4 +74,31 @@ public class DBDAO implements DAO {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean validateLogin(String username, String password) {
+        String query = "SELECT * FROM LOGIN_DATA WHERE user_name=? AND password=?;";
+        boolean isCorrect = false;
+
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                isCorrect = true;
+            }
+
+            preparedStatement.close();
+            resultSet.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isCorrect;
+    }
+
 }

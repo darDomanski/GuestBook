@@ -8,4 +8,6 @@ public interface DAO {
     List<Content> getAll();
 
     void insert(Content content);
+
+    boolean validateLogin(String username, String password);
 }

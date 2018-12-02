@@ -1,6 +1,7 @@
 package com.codecool.guestbook;
 
 import com.codecool.guestbook.DAO.DBConnector.DBConnector;
+import com.codecool.guestbook.handlers.Cookie;
 import com.codecool.guestbook.handlers.GuestBook;
 import com.codecool.guestbook.handlers.Static;
 import com.sun.net.httpserver.HttpServer;
@@ -40,6 +41,7 @@ public class App {
 
                     server.createContext("/", new GuestBook(this.connection));
                     server.createContext("/static", new Static());
+                    server.createContext("/cookie", new Cookie());
                     server.setExecutor(null);
                     System.out.println("Server's routes set!");
 

@@ -20,3 +20,14 @@ content TEXT,
 author TEXT,
 date TEXT
 );
+
+CREATE TABLE
+IF NOT EXISTS
+login_data (
+user_name TEXT,
+password TEXT
+);
+
+--Insert default user
+INSERT INTO login_data(user_name, password)
+VALUES ('admin', 'admin');
