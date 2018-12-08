@@ -1,3 +1,45 @@
 body {
-    background-color: aquamarine;
+    width: 70%;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+form[method=post] {
+    padding: 20px;
+    background-color: lightgrey;
+    border-style: solid;
+
+}
+input[type=submit] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 10%;
+}
+
+table {
+    display: block;
+    border: 1px solid;
+    margin: 5px;
+    max-width: 800px;
+    table-layout: fixed;
+    
+} 
+td {
+    text-align: left;
+    padding: 8px;
+    word-wrap: break-word;
+    max-width: 310px;
+}
+tr {
+    max-width: 100%;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+tr:nth-child(odd) {
+    background-color:gray;
+}
+#login {
+    width: 30%;
 }

@@ -2,6 +2,7 @@ package com.codecool.guestbook.DAO.DBConnector;
 
 
 import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -24,20 +25,11 @@ public class DBConnector {
     public static Connection getConnection() {
         try {
             connection = dataSource.getConnection();
+            System.out.println("Active connections: " + dataSource.getNumActive());
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;
-    }
-
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.err.println("Can't close connection!");
-                e.printStackTrace();
-            }
-        }
     }
 }

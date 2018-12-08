@@ -9,14 +9,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class DBDAO implements DAO {
-    private Connection connection;
-
-    public DBDAO(Connection connection) {
-        this.connection = connection;
-    }
+public class EntriesDAOImpl implements EntriesDAO {
 
     @Override
     public List<Content> getAll() {
@@ -26,7 +22,7 @@ public class DBDAO implements DAO {
 
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-//        Connection con;
+        Connection connection;
 
         try {
             connection = DBConnector.getConnection();
@@ -43,7 +39,7 @@ public class DBDAO implements DAO {
 
             preparedStatement.close();
             resultSet.close();
-//            con.close();
+            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,52 +49,27 @@ public class DBDAO implements DAO {
     }
 
     @Override
-    public void insert(Content content) {
+    public void insert(String content, String author) {
         String query = "INSERT INTO entry(content, author, date) VALUES (?, ?, ?)";
 
-//        Connection con = DBConnector.getConnection();
         PreparedStatement preparedStatement = null;
+        Connection connection;
 
         try {
+            connection = DBConnector.getConnection();
             preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, content.getContent());
-            preparedStatement.setString(2, content.getAuthor());
-            preparedStatement.setString(3, content.getDate());
+            preparedStatement.setString(1, content);
+            preparedStatement.setString(2, author);
+            preparedStatement.setString(3, Calendar.getInstance().getTime().toString());
             preparedStatement.executeUpdate();
 
             preparedStatement.close();
-//            con.close();
+            connection.close();
 
         } catch (SQLException e) {
             System.err.println("Can't put record into table!");
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public boolean validateLogin(String username, String password) {
-        String query = "SELECT * FROM LOGIN_DATA WHERE user_name=? AND password=?;";
-        boolean isCorrect = false;
-
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        try {
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                isCorrect = true;
-            }
-
-            preparedStatement.close();
-            resultSet.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return isCorrect;
     }
 
 }

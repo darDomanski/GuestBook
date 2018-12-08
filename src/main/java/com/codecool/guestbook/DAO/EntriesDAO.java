@@ -4,10 +4,9 @@ import com.codecool.guestbook.model.Content;
 
 import java.util.List;
 
-public interface DAO {
+public interface EntriesDAO {
     List<Content> getAll();
 
-    void insert(Content content);
+    void insert(String content, String author);
 
-    boolean validateLogin(String username, String password);
 }

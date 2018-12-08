@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="static/css/guestbook.css" />
+    <link rel="stylesheet" href="/static/css/guestbook.css" />
 <body>
+
+    <h3>Hello {{ user }}, good to see you! </h3>
+
+    <form action="/logout">
+        <input type="submit" value="Log out!" />
+    </form>
 
     <form method="POST">
         <label for="content">Message: </label>

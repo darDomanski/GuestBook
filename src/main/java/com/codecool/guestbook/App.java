@@ -1,13 +1,9 @@
 package com.codecool.guestbook;
 
-import com.codecool.guestbook.DAO.DBConnector.DBConnector;
-import com.codecool.guestbook.handlers.Cookie;
-import com.codecool.guestbook.handlers.GuestBook;
-import com.codecool.guestbook.handlers.Static;
+import com.codecool.guestbook.handlers.*;
 import com.sun.net.httpserver.HttpServer;
 
 import java.net.InetSocketAddress;
-import java.sql.Connection;
 import java.util.Calendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -15,12 +11,26 @@ import java.util.Scanner;
 
 public class App {
 
-    private Connection connection = DBConnector.getConnection();
 
     public static void main(String[] args) throws Exception {
+//        System.out.println(Calendar.getInstance().getTime().toString());
+//        App app = new App();
+//        app.runServer();
         System.out.println(Calendar.getInstance().getTime().toString());
-        App app = new App();
-        app.runServer();
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        System.out.println("Server created successfully!");
+
+        server.createContext("/", new SessionController());
+        server.createContext("/guestbook", new GuestBookController());
+        server.createContext("/login", new LoginController());
+        server.createContext("/logout", new LogoutController());
+        server.createContext("/static", new Static());
+
+        server.setExecutor(null);
+        System.out.println("Server's routes set!");
+
+        server.start();
+        System.out.println("Server starts listening on port 8000...");
 
     }
 
@@ -39,9 +49,10 @@ public class App {
                     server = HttpServer.create(new InetSocketAddress(8000), 0);
                     System.out.println("Server created successfully!");
 
-                    server.createContext("/", new GuestBook(this.connection));
-                    server.createContext("/static", new Static());
-                    server.createContext("/cookie", new Cookie());
+                    server.createContext("/", new SessionController());
+                    server.createContext("/guestbook", new GuestBookController());
+                    server.createContext("/login", new LoginController());
+
                     server.setExecutor(null);
                     System.out.println("Server's routes set!");
 
@@ -58,7 +69,6 @@ public class App {
                     if (server != null) {
                         server.stop(0);
                     }
-                    DBConnector.closeConnection();
                     System.out.println("Server stopped, database connection closed, exiting...");
                     isWorking = false;
                     break;
