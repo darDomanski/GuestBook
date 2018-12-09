@@ -35,10 +35,8 @@ public class LoginController implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
-        System.out.println(method);
 
         if (method.equals("GET")) {
-            System.out.println("metoda get");
             JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
             JtwigModel model = JtwigModel.newModel();
             response = template.render(model);
@@ -49,7 +47,6 @@ public class LoginController implements HttpHandler {
         }
 
         if (method.equals("POST")) {
-            System.out.println("metoda post");
             String context = "";
             String formData = formParser.getFormDataFromRequest(httpExchange);
             Map inputs = formParser.parseFormData(formData);

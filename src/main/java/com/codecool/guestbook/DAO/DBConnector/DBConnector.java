@@ -25,7 +25,6 @@ public class DBConnector {
     public static Connection getConnection() {
         try {
             connection = dataSource.getConnection();
-            System.out.println("Active connections: " + dataSource.getNumActive());
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -39,7 +39,6 @@ public class GuestBookController implements HttpHandler {
         }
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/guestbook.twig");
         JtwigModel model = JtwigModel.newModel();
-        System.out.println("dupa");
 
         model.with("user", getUserName(httpExchange));
         model.with("entries", entriesDAO.getAll());
