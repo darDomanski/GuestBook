@@ -6,22 +6,27 @@
 
     <h3>Hello {{ user }}, good to see you! </h3>
 
-    <form action="/logout">
+    <form action="/logout" id="logout_form">
         <input type="submit" value="Log out!" />
     </form>
 
-    <form method="POST">
+    <form method="POST" id="entry_form">
         <label for="content">Message: </label>
-        <textarea name="content" id="content" cols="30" rows="3" required></textarea>
+        <textarea name="content" cols="30" rows="3" required></textarea>
         <label for="name">Name: </label>
         <input type="text" name="name" required>
         <input type="submit" value="Submit">
     </form>
 
     <table>
+        <tr>
+            <th> Message </th>
+            <th> Author </th>
+            <th> Date </th>
+        </tr>
     	{% for entry in entries %}
 		<tr>
-		    <td> {{ entry.content }} </td>
+		    <td id="content"> {{ entry.content }} </td>
 		    <td> {{ entry.author }} </td>
 		    <td> {{ entry.date }} </td>
 		</tr>

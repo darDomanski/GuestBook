@@ -5,41 +5,57 @@ form {
     display: flex;
     flex-direction: column;
 }
-form[method=post] {
-    padding: 20px;
-    background-color: lightgrey;
-    border-style: solid;
+
+#login_form, #entry_form {
+    padding: 1%;
+    width: 30%;
+    border: solid 1px black;
+    -webkit-box-shadow: 22px 26px 79px 17px rgba(130,117,130,0.73);
+    -moz-box-shadow: 22px 26px 79px 17px rgba(130,117,130,0.73);
+    box-shadow: 22px 26px 79px 17px rgba(130,117,130,0.73)
+}
+form input {
+    margin: 1%;
+}
+form input[type=submit] {
+    width: 50%;
+    align-self: center;
+    margin: 1%;
+    background: none;
 
 }
-input[type=submit] {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 10%;
+#login_form, #login_form input, #entry_form, #entry_form input, #logout_form input {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }
-
+#logout_form {
+    width: 30%;
+    padding-bottom: 5%;
+}
+#logout_form input[type=submit] {
+    align-self: flex-start;
+}
+#entry_form {
+    width: 70%;
+}
 table {
-    display: block;
-    border: 1px solid;
-    margin: 5px;
-    max-width: 800px;
+    margin-top: 5%;
     table-layout: fixed;
-    
-} 
-td {
-    text-align: left;
-    padding: 8px;
+    width: 75%
+}
+table td {
+    border: solid 1px black;
     word-wrap: break-word;
-    max-width: 310px;
+    display: table-cell;
+    text-align: center;
 }
-tr {
-    max-width: 100%;
-}
+table tr th:nth-child(1){
+    width: 60%;
+  }
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 tr:nth-child(odd) {
-    background-color:gray;
-}
-#login {
-    width: 30%;
+    background-color:lightgray;
 }
